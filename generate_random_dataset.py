@@ -42,7 +42,10 @@ for _ in range(n_games):
         choice = np.random.choice(range(len(plays)))
         game.make_play(position=plays[choice], token=turn)
         output = game.check_win()
-        game_configs.append(game.board.flatten())
+        ## We train from the perspective of the player, which only evaluates the probability of
+        ## winning of a boardstate where they already made a play
+        if turn == 1:
+            game_configs.append(game.board.flatten())
         turn *= -1
     
     for config in game_configs:
@@ -68,7 +71,8 @@ for _ in range(n_games):
         choice = np.random.choice(range(len(plays)))
         game.make_play(position=plays[choice], token=turn)
         output = game.check_win()
-        game_configs.append(game.board.flatten())
+        if turn == 1:
+            game_configs.append(game.board.flatten())
         turn *= -1
 
     for config in game_configs:
