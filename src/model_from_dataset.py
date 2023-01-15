@@ -7,6 +7,11 @@ tf.random.set_seed(42)
 
 config_path = input("Configuration file path: ")
 results_path = input("Results file path: ")
+number_of_layers = int(input("Number of layers in NN: "))
+number_of_neurons = int(input("Number of neurons per layer: "))
+
+
+
 
 configs = np.load(config_path)
 results = np.load(results_path)
@@ -17,12 +22,10 @@ results = np.load(results_path)
 ## The input layer has 9 inputs (when flattened), the ouput layer has 1 continous output.
 
 input_layer = tf.keras.layers.Flatten()
-dense_1 = tf.keras.layers.Dense(10, activation = "relu")
-dense_2 = tf.keras.layers.Dense(10, activation = "relu")
-dense_3 = tf.keras.layers.Dense(10, activation = "relu")
+dense_layers = [tf.keras.layers.Dense(number_of_neurons, activation= "relu") for _ in range(number_of_layers)]
 output_layer = tf.keras.layers.Dense(1, activation = "sigmoid")
 
-model = tf.keras.Sequential([input_layer, dense_1, dense_2, dense_3, output_layer])
+model = tf.keras.Sequential([input_layer, *dense_layers, output_layer])
 
 opt = tf.keras.optimizers.Adam(learning_rate=1e-3)
 model.compile(loss = "mse", optimizer = opt, metrics = ["RootMeanSquaredError"])
