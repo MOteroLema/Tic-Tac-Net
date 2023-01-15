@@ -154,8 +154,8 @@ class Match:
         Class to handle a match between two players
 
         Args:
-            player1 : A class describing the player that goes first. It will play with "+1"
-            player2 : A class describing the player that goes second. It will play with "-1"
+            player1 : A class describing the player that will play with "+1"
+            player2 : A class describing the player that will play with "-1"
         """
         self.player1  = player1
         self.player2 = player2
